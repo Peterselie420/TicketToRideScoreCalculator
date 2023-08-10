@@ -149,7 +149,7 @@ var riga = city{Riga, "Riga"}
 var petrograd = city{Petrograd, "Petrograd"}
 
 
-//Append all cities in a single list
+//Append all cities in a single list (currently not all but not needed)
 func initCities() []city {
 	cities = append(cities, lisboa, cadiz, madrid, barcelona, pamplona)
 	fmt.Printf("Found %d cities\n", len(cities))

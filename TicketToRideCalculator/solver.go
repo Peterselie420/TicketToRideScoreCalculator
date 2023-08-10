@@ -8,7 +8,7 @@ import (
 // Amount of trains available (in the real game this is 46?)
 // for 7 trains, the solver runs in a reasonable time (few minutes :D)
 // where it should find a maximum score of: 18 (brest to marseille with 1 card)
-const trainsMax int = 6
+const trainsMax int = 7
 
 var score int = 0
 var consideredNetworks [][]int
@@ -60,14 +60,18 @@ func solve(network []route, trainsUsed int) {
 
 			// If we have 8 or less trains left...
 			if trainsUsed > trainsMax-8 {
-				var currentScore, _cards = calculateScore(network)
+				var scoreLength, scoreCards, _cards = calculateScore(network)
 				// If the calculated score is higher than the highest we found yet...
-				if currentScore > score {
+				if (scoreLength + scoreCards) > score {
 					fmt.Print("Current Network: //")
 					printRouteSlice(network)
-					score = currentScore
+					score = (scoreLength + scoreCards)
 					fmt.Print("Score: ")
 					fmt.Println(score)
+					fmt.Print("Score Length: ")
+					fmt.Println(scoreLength)
+					fmt.Print("Score Cards: ")
+					fmt.Println(scoreCards)
 					fmt.Print("Cards: ")
 					fmt.Println(len(_cards))
 					printCards(_cards)

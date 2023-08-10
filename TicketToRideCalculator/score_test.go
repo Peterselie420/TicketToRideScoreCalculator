@@ -4,9 +4,10 @@ import (
 	"math/rand"
   	"time"
     "testing"
+	"fmt"
 )
 
-var networkSize = 90
+var networkSize = 5
 var network []route
 
 func initRandomNetwork() {
@@ -26,8 +27,9 @@ func BenchmarkScoreCalculationRandomNetwork(b *testing.B) {
         b.ResetTimer()
 		initRandomNetwork()
         for i := 0; i < b.N; i++ {
-            calculateScore(network)
+            scoreLength, scoreCards, cards = calculateScore(network)
 			network = nil
+			fmt.Println(scoreLength + scoreCards)
         }
     })
 }
@@ -38,8 +40,8 @@ func BenchmarkScoreCalculationCompleteNetwork(b *testing.B) {
     b.Run("ScoreCompleteNetwork", func(b *testing.B) {
         b.ResetTimer()
         for i := 0; i < b.N; i++ {
-            calculateScore(routes)
-			network = nil
+            scoreLength, scoreCards, cards = calculateScore(routes)
+			fmt.Println(scoreLength + scoreCards)
         }
     })
 }
