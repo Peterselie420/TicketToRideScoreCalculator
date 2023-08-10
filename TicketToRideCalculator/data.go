@@ -149,16 +149,16 @@ var riga = city{Riga, "Riga"}
 var petrograd = city{Petrograd, "Petrograd"}
 
 
-// Append all cities in a single list
-// func initCities() []city {
-// 	cities = append(cities, lisboa, cadiz, madrid, barcelona, pamplona)
-// 	fmt.Printf("Found %d cities\n", len(cities))
-// 	for _, city := range cities {
-// 		fmt.Print(city.name + " ")
-// 	}
-// 	fmt.Println("")
-//     return cities
-// }
+//Append all cities in a single list
+func initCities() []city {
+	cities = append(cities, lisboa, cadiz, madrid, barcelona, pamplona)
+	fmt.Printf("Found %d cities\n", len(cities))
+	for _, city := range cities {
+		fmt.Print(city.name + " ")
+	}
+	fmt.Println("")
+    return cities
+}
 
 //routes
 var routes []route
@@ -378,6 +378,7 @@ func initCards() ([]card, []card) {
 
 
 func initData() ([]route, []card, []card, map[route][]route) {
+    cities = initCities()
 	routes = initRoutes()
     cards, longCards = initCards()
     return routes, cards, longCards, routeMap
