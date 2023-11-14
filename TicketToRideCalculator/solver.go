@@ -8,18 +8,38 @@ import (
 // Amount of trains available (in the real game this is 46?)
 // for 7 trains, the solver runs in a reasonable time (few minutes :D)
 // where it should find a maximum score of: 18 (brest to marseille with 1 card)
-const trainsMax int = 7
+var trainsMax int = 20
 
 var score int = 0
 var consideredNetworks [][]int
 var langeUnits []card
+var bestNetwork []route
 
 // Initialize variables and call solve method
 func setupSolver() {
 	var trainsUsed int = 0
 	var network []route
 	langeUnits = longCards
-	solve(network, trainsUsed)
+	
+	for (trainsMax < 46) {
+		fmt.Println("Running solve with Network: ")
+		printRouteSlice(bestNetwork)
+		network = nil
+		if (len(bestNetwork) != 0) {
+			network = append(network, bestNetwork...)
+			trainsUsed = 0
+			for _, route := range(bestNetwork) {
+				trainsUsed += route.length
+			}
+		}
+		fmt.Println("and trains: ")
+		fmt.Println(trainsUsed)
+		solve(network, trainsUsed)
+		trainsMax += 8
+		if (trainsMax > 46) {
+			trainsMax = 46
+		}
+	}
 }
 
 // Function to check if we have already considered a permutation of a network;
@@ -66,6 +86,8 @@ func solve(network []route, trainsUsed int) {
 					fmt.Print("Current Network: //")
 					printRouteSlice(network)
 					score = (scoreLength + scoreCards)
+					bestNetwork = nil
+					bestNetwork = append(bestNetwork, network...)
 					fmt.Print("Score: ")
 					fmt.Println(score)
 					fmt.Print("Score Length: ")
